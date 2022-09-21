@@ -10,6 +10,7 @@ function App() {
   const [audioData, setAudioData] = useState(null)
   const [allTracks, setAllTracks] = useState([])
   const [loader, setLoader] = useState([])
+  const [dummyState, setDummyState] = useState(true)
 
   // state for first track
   const [trackOne, setTrackOne] = useState(
@@ -98,7 +99,7 @@ useEffect(() => {
   fetch('/tracks')
     .then(r => r.json())
     .then(data => setAllTracks(data))
-}, [])
+}, [dummyState])
 
 
 
@@ -123,7 +124,11 @@ if (navigator.getUserMedia) {
 }
 
 
-
+const handleClickState = () => {
+  return(
+    setDummyState(!dummyState)
+  )
+}
 
 
 
@@ -157,6 +162,8 @@ if (navigator.getUserMedia) {
       <audio src={trackOne.blobURL} controls="controls" />
 
       <Container allTracks={allTracks}/>
+
+      <button onClick={handleClickState}>Refresh</button>
       
       
     </div>
